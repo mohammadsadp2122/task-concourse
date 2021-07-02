@@ -1,0 +1,15 @@
+---
+resources:
+  - name: git-resource
+    type: git
+    source:
+      uri: ((git-uri))
+      branch: ((git-branch))
+
+jobs:
+  - name: concourse-job
+    plan:
+      - get: git-resource
+        trigger: true
+      - task: concourse-worker
+        file: git-resource/concourse-worker.sh
